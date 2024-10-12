@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "palavra_en": "apple",
+      "palavra_pt": "maçã",
+      "definicao": "Uma fruta popular, geralmente vermelha ou verde."
+    },
+    {
+      "id": 2,
+      "palavra_en": "car",
+      "palavra_pt": "carro",
+      "definicao": "Um veículo motorizado utilizado para transporte."
+    },
+    {
+      "id": 3,
+      "palavra_en": "house",
+      "palavra_pt": "casa",
+      "definicao": "Uma construção destinada a habitação."
+    },
+    {
+      "id": 4,
+      "palavra_en": "book",
+      "palavra_pt": "livro",
+      "definicao": "Um conjunto de páginas encadernadas contendo texto ou imagens."
+    },
+    {
+      "id": 5,
+      "palavra_en": "computer",
+      "palavra_pt": "computador",
+      "definicao": "Um dispositivo eletrônico usado para processar dados."
+    },
+    {
+      "id": 6,
+      "palavra_en": "teacher",
+      "palavra_pt": "professor",
+      "definicao": "Alguém que ensina e compartilha conhecimento com outras pessoas."
+    },
+    {
+      "id": 7,
+      "palavra_en": "water",
+      "palavra_pt": "água",
+      "definicao": "Um líquido essencial para a vida, composto por hidrogênio e oxigênio."
+    },
+    {
+      "id": 8,
+      "palavra_en": "sky",
+      "palavra_pt": "céu",
+      "definicao": "A região da atmosfera visível acima da superfície da Terra."
+    }
+  ]
+  

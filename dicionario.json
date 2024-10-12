@@ -1,0 +1,11 @@
+[
+    {
+      "palavra": "React Native",
+      "definicao": "Um framework para construir aplicativos mobile nativos usando JavaScript e React."
+    },
+    {
+      "palavra": "JavaScript",
+      "definicao": "Uma linguagem de programação interpretada, de script em alto nível."
+    },
+    // ... mais entradas
+  ]

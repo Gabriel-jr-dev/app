@@ -3,26 +3,13 @@ import { View, Text, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
-import HomeScreen from "./HomeScreen"; // Importando a tela principal
+import HomeScreen from "./screens/HomeScreen"; // Importando a tela principal
 import DefinitionScreen from "./DefinitionScreen"; // Importando a tela de definição
+import NewsScreen from "./screens/NewsScreen"; // Importe a noticias
+import AboutScreen from "./screens/AboutScreen"; // Importe a about
+import SettingsScreen from "./screens/SettingsScreen"; // Importe settings
 
 const Drawer = createDrawerNavigator();
-
-function AboutScreen() {
-  return (
-    <View style={styles.screen}>
-      <Text style={styles.text}>Este é um dicionário Inglês-Português!</Text>
-    </View>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={styles.screen}>
-      <Text style={styles.text}>Configurações do Aplicativo</Text>
-    </View>
-  );
-}
 
 export default function App() {
   return (
@@ -68,6 +55,15 @@ export default function App() {
           options={{
             drawerIcon: ({ color, size }) => (
               <Icon name="settings-outline" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Notícias"
+          component={NewsScreen}
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <Icon name="newspaper-outline" size={size} color={color} />
             ),
           }}
         />

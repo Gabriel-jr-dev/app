@@ -6,21 +6,33 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Image,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import palavras from './assets/palavras.json'; // Importando o JSON
+import palavras from './assets/palavras.json'; // JSON com palavras
 
 export default function HomeScreen({ navigation }) {
   const [search, setSearch] = useState('');
   const [filteredPalavras, setFilteredPalavras] = useState([]);
+  const [isSplashVisible, setIsSplashVisible] = useState(true); // Estado da Splash Screen
+
+  useEffect(() => {
+    // Splash Screen desaparece após 2 segundos
+    const timer = setTimeout(() => setIsSplashVisible(false), 3000);
+    return () => clearTimeout(timer); // Limpa o timer se o componente for desmontado
+  }, []);
 
   useEffect(() => {
     // Filtra palavras sempre que o texto de busca muda
-    const results = palavras.filter(p =>
-      p.palavra_en.toLowerCase().includes(search.toLowerCase())
-    );
-    setFilteredPalavras(results);
+    if (search.trim() === '') {
+      setFilteredPalavras([]);
+    } else {
+      const results = palavras.filter(p =>
+        p.palavra_en.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredPalavras(results);
+    }
   }, [search]);
 
   const renderItem = ({ item }) => (
@@ -31,6 +43,14 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.palavra}>{item.palavra_en} - {item.palavra_pt}</Text>
     </TouchableOpacity>
   );
+
+  if (isSplashVisible) {
+    return (
+      <View style={styles.splashContainer}>
+        <Image source={require('./assets/logo.png')} style={styles.logo} />
+      </View>
+    );
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -51,7 +71,9 @@ export default function HomeScreen({ navigation }) {
             keyboardShouldPersistTaps="handled"
           />
         ) : (
-          <Text style={styles.noResults}>Nenhuma palavra encontrada.</Text>
+          search.trim() !== '' && (
+            <Text style={styles.noResults}>Nenhuma palavra encontrada.</Text>
+          )
         )}
       </View>
     </TouchableWithoutFeedback>
@@ -59,6 +81,17 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+  },
   container: {
     flex: 1,
     padding: 20,

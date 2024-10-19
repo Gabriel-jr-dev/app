@@ -1,6 +1,8 @@
+// App.js
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import HomeScreen from "./screens/HomeScreen"; // Importando a tela principal
@@ -8,8 +10,23 @@ import DefinitionScreen from "./DefinitionScreen"; // Importando a tela de defin
 import NewsScreen from "./screens/NewsScreen"; // Importe a noticias
 import AboutScreen from "./screens/AboutScreen"; // Importe a about
 import SettingsScreen from "./screens/SettingsScreen"; // Importe settings
+import WebViewScreen from "./screens/WebViewScreen";
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+
+// function NewsStack() {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="News" component={NewsScreen} />
+//       <Stack.Screen
+//         name="NewsDetail"
+//         component={NewsDetailScreen}
+//         options={{ title: "Detalhes da Notícia" }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 
 export default function App() {
   return (
@@ -30,8 +47,8 @@ export default function App() {
           }}
         />
         <Drawer.Screen
-          name="Definition" // Adicione esta linha
-          component={DefinitionScreen} // E esta
+          name="Definition"
+          component={DefinitionScreen}
           options={{
             drawerItemStyle: { display: "none" }, // Oculta na navegação se não quiser acesso por lá
           }}
@@ -65,6 +82,14 @@ export default function App() {
             drawerIcon: ({ color, size }) => (
               <Icon name="newspaper-outline" size={size} color={color} />
             ),
+          }}
+        />
+        <Drawer.Screen
+          name="WebView"
+          component={WebViewScreen}
+          options={{
+            drawerItemStyle: { height: 0 },
+            headerShown: false, // Opcional: Oculta a tela do menu
           }}
         />
       </Drawer.Navigator>

@@ -7,12 +7,12 @@ import {
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
-  Linking,
   RefreshControl,
+  Image, // Importando o componente Image
 } from "react-native";
 import axios from "axios";
 
-const API_KEY = "5c93b9fa2c7b40989de0efe3a1121a65";
+const API_KEY = "5c93b9fa2c7b40989de0efe3a1121a65"; // Insira sua chave da API aqui
 const NEWS_URL = `https://newsapi.org/v2/top-headlines?language=en&apiKey=${API_KEY}`;
 
 // Função para formatar a data
@@ -27,7 +27,7 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString("pt-BR", options);
 };
 
-export default function NewsScreen() {
+export default function NewsScreen({ navigation }) {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -41,8 +41,8 @@ export default function NewsScreen() {
     try {
       const response = await axios.get(NEWS_URL);
       setNews(response.data.articles);
-
       setError(null); // Limpa erro, se houver
+      console.log(response.data.articles);
     } catch (err) {
       setError("Erro ao carregar as notícias. Tente novamente mais tarde.");
     } finally {
@@ -58,9 +58,14 @@ export default function NewsScreen() {
   }, []);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("WebView", { url: item.url })}
+    >
       <View style={styles.newsItem}>
-        <Text style={styles.description}>{item.source.name}</Text>
+        {item.urlToImage && ( // Verifica se a URL da imagem existe
+          <Image source={{ uri: item.urlToImage }} style={styles.image} />
+        )}
+        <Text style={styles.source}>{item.source.name}</Text>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.date}>{formatDate(item.publishedAt)}</Text>
         <Text style={styles.description}>{item.description}</Text>
@@ -115,6 +120,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
+  image: {
+    width: "100%", // Ajusta a largura da imagem
+    height: 200, // Define uma altura fixa
+    borderRadius: 8, // Bordas arredondadas
+    marginBottom: 10, // Espaço abaixo da imagem
+  },
   title: {
     fontSize: 18,
     fontWeight: "bold",
@@ -128,6 +139,12 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: "#555",
+  },
+  source: {
+    fontSize: 14,
+    fontStyle: "italic",
+    color: "#555",
+    marginBottom: 5,
   },
   error: {
     color: "red",
